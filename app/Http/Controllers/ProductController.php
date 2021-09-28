@@ -9,18 +9,8 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-    
-        return Product::all();
-        
-        /*$product = Product::all();
-        foreach ($product as $products) {
-                return response()->json([
-                'Producto' => [
-                    'nombre'=>$products->name,
-                    'stock'=>$products->id 
-                ]
-            ], 201);
-        }*/
+        $product = $request->input('product_id');
+        return Product::findOrFail($product);
 
     }
 
@@ -41,6 +31,7 @@ class ProductController extends Controller
     ['name' => $name],
     ['stock' => $stock]
 );
+    $product->save();
 
     return response()->json([
                 'producto' => [
